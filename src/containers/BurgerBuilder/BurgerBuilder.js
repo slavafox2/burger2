@@ -26,10 +26,10 @@ class BurgerBuilder extends Component {
     state = {
         // ingredients: null,
         // totalPrice: 0,
-        purchasable: false,
+        // purchasable: false,
         purchasing: false,
-        loading: false,
-        error: false
+        // loading: false,
+        // error: false
     };
     componentDidMount() {
         console.log(this.props);
@@ -136,9 +136,9 @@ class BurgerBuilder extends Component {
                 purchaseContinued={this.purchaseContinueHandler} />);
         }
 
-        if (this.state.loading) {
-            orderSummary = <Spinner />;
-        }
+    // if (this.state.loading) {
+    //     orderSummary = <Spinner />;
+    // }
 
         return (
             <Aux>
@@ -165,7 +165,7 @@ const mapDispatchToProps = dispatch => {
         onIngredientRemoved: (ingName) => dispatch(burgerBuilderActions.removeIngredient(ingName))
     }
 };
-export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(BurgerBuilder,axios));
+export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(BurgerBuilder, axios));
 
 
 
