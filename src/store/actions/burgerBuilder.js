@@ -34,7 +34,7 @@ export const initIngredients = () => {
         //i can use async code
         axios.get('https://burger-28984.firebaseio.com/ingredients.json')
             .then(response => {
-                dispatch(setIngredients(response.data))
+                dispatch(setIngredients(response.data)) // bring from actions to reducers
             })
             .catch(error => { 
                 dispatch(fetchIngredientsFailed())

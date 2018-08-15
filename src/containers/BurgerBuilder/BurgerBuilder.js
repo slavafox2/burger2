@@ -9,7 +9,7 @@ import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import axios from '../../axios-orders';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
-import * as burgerBuilderActions from '../../store/actions/index';
+import * as actions from '../../store/actions/index';
 
 // const INGREDIENT_PRICES = {
 //     salad: 0.5,
@@ -37,6 +37,7 @@ class BurgerBuilder extends Component {
         // axios.get('https://burger-28984.firebaseio.com/ingredients.json')
         //     .then(response => { this.setState({ingredients: response.data}); })
         //     .catch(error => { this.setState({error: true}); });
+        this.props.onInitIngredients();
     };
     updatePurchaseState = (ingredients) => {
         // const ingredients = { ...this.state.ingredients };  //not work with ald statement
@@ -85,30 +86,24 @@ class BurgerBuilder extends Component {
         this.setState({purchasing: false});
     };
     purchaseContinueHandler = () => {
-
-        // const queryParams = [];
-        // for (let i in this.state.ingredients){
-        //     queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredients[i]));
-        // }
-        // queryParams.push('price=' + this.state.totalPrice);
-        // const queryString = queryParams.join('&');
-        // this.props.history.push({
-        //     pathname: '/checkout',
-        //     search: '?' + queryString
-        // });
+        this.props.onInitPurchase();
         this.props.history.push('/checkout');
     };
 
 
     render() {
         // const disabledInfo = { ...this.state.ingredients };
-        const disabledInfo = { ...this.props.ings };  // buind with the redux store through "mapStateToProps"
+        const disabledInfo = { 
+            ...this.props.ings 
+        };  // buind with the redux store through "mapStateToProps"
+        
         for (let key in disabledInfo) {
             disabledInfo[key] = disabledInfo[key] <= 0;
         }
 
         let orderSummary = null;
-        let burger = this.state.error ? <p>the ingredients can't be showed-loaded</p> : <Spinner />;
+        // let burger = this.state.error ? <p>the ingredients can't be showed-loaded</p> : <Spinner />;
+        let burger = this.props.error ? <p>the ingredients can't be showed-loaded</p> : <Spinner />;
 
         if (this.props.ings) {
             burger = (
@@ -153,43 +148,21 @@ class BurgerBuilder extends Component {
 
 const mapStateToProps = state => {
     return {
-        ings: state.ingredients,
-        price: state.totalPrice
-    }
+        //object cames from reducers state
+        ings: state.burgerBuilder.ingredients,
+        price: state.burgerBuilder.totalPrice,
+        error: state.burgerBuilder.error
+    };
 };
+
 const mapDispatchToProps = dispatch => {
     return {
         // onIngredientAdded: (ingName) => dispatch({type: actionType.ADD_INGREDIENT, ingredientName: ingName}),
         // onIngredientRemoved: (ingName) => dispatch({type: actionType.REMOVE_INGREDIENT, ingredientName: ingName})
-        onIngredientAdded: (ingName) => dispatch(burgerBuilderActions.addIngredient(ingName)),
-        onIngredientRemoved: (ingName) => dispatch(burgerBuilderActions.removeIngredient(ingName))
-    }
+        onIngredientAdded: (ingName) => dispatch(actions.addIngredient(ingName)),
+        onIngredientRemoved: (ingName) => dispatch(actions.removeIngredient(ingName)),
+        onInitIngredients: () => dispatch(actions.initIngredients()),
+        onInitPurchase: () => dispatch(actions.purchaseInit())
+    };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(BurgerBuilder, axios));
-
-
-
-
-// purchaseContinueHandler = () => {
-
-    // this.setState({loading: true});
-    // const order = {
-    //     ingredients: this.state.ingredients,
-    //     price: this.state.totalPrice,
-    //     customer: {
-    //         name: 'Max Schwarzmüller',
-    //         address: {
-    //             street: 'Teststreet 1',
-    //             zipCode: '41351',
-    //             country: 'Germany'
-    //         },
-    //         email: 'test@test.com'
-    //     },
-    //     deliveryMethod: 'fastest'
-    // };
-
-    // axios.post('/orders.json',order)
-    //     .then(respons => {
-    //         this.setState({loading: false, purchasing: false});
-    //     })
-    //     .catch(error => {this.setState({loading: false, purchasing: false}); });
