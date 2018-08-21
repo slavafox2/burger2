@@ -1,4 +1,4 @@
-# **burger**  is SPA the order food. There possible building  burger yourself with an ingredients and order it.
+# BURGER is SPA the order food. There possible building  burger yourself with an ingredients and order it.
 
 stack of technologies:  react, redux, wabpack, babel, firebase, axios, routes,
 
