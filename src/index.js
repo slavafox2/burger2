@@ -10,21 +10,26 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import burgerBuilderReducer from './store/reducers/burgerBuilder';
 import orderReducer from './store/reducers/order';
+import authReducer from './store/reducers/auth';
+
 
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({
     burgerBuilder: burgerBuilderReducer,
-    order: orderReducer
+    order: orderReducer,
+    auth: authReducer
+
 });
 
-const store = createStore(rootReducer, composeEnhancers(
-    applyMiddleware(thunk)
-)); // are a lot of stores
+const stores = createStore(
+    rootReducer, 
+    composeEnhancers(applyMiddleware(thunk))
+); // are a lot of stores
 
 const app = (
-    <Provider store={store}>
+    <Provider store={stores}>
         <BrowserRouter>
             <App />
         </BrowserRouter>

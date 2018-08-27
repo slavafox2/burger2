@@ -15,24 +15,10 @@ class Orders extends Component {
     //     loading: true
     // };
     componentDidMount(){
-        
-        // axios.get('/orders.json')
-        //     .then(res => {
-        //         const fetchOrders = [];
-        //         for(let key in res.data){
-        //             fetchOrders.push({
-        //                 ...res.data[key],
-        //                 id: key
-        //             })
-        //         }
-        //         this.setState({loading: false, orders: fetchOrders});
-        //     })
-        //     .catch(error => {
-        //         this.setState({loading: false});
-        //     });
-
-        this.props.onFetchOrders();
+        this.props.onFetchOrders(this.props.token);
     }
+
+
     render () {
         let orders = <Spinner />;
         if ( !this.props.loading ) {
@@ -51,16 +37,17 @@ class Orders extends Component {
     }
 }
 
+
 const mapStateToProps = state => {
     return {
         orders: state.order.orders,
-        loading: state.order.loading
+        loading: state.order.loading,
+        token: state.auth.token
     };
 };
-
 const mapDispatchToProps = dispatch => {
     return {
-        onFetchOrders: () => dispatch( actions.fetchOrders() )
+        onFetchOrders: (token) => dispatch( actions.fetchOrders(token) )
     };
 };
 
