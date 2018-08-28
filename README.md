@@ -1,6 +1,6 @@
-# BURGER is SPA order food. There possible building  burger yourself with an ingredients and order it.
+# BURGER is SPA order food. There possible building  burger yourself with an ingredients and order it. Also, user have authentication with SingUp and SingIn.
 
-stack of technologies:  React, redux, wabpack, babel, firebase, axios, routes, React DevTools
+STACK of technologies:  React, redux, wabpack, babel, firebase, axios, routes, redirect, React DevTools, 
 
 >Building page
 
@@ -17,6 +17,12 @@ stack of technologies:  React, redux, wabpack, babel, firebase, axios, routes, R
 >Orders page
 
 ![3](/imagesForReadMe//3.jpg)
+---
+---
+
+>Authentication page
+
+![4](/imagesForReadMe//4.jpg)
 ---
 ---
 
