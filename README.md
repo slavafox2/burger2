@@ -1,6 +1,6 @@
 # BURGER is SPA order food. There possible building  burger yourself with an ingredients and order it.
 
-stack of technologies:  react, redux, wabpack, babel, firebase, axios, routes,
+stack of technologies:  React, redux, wabpack, babel, firebase, axios, routes, React DevTools
 
 >Building page
 
